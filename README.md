@@ -15,7 +15,7 @@
 
 请从以下链接下载刷课脚本的可执行文件：
 
-[下载刷课脚本](#)
+[下载刷课脚本](https://github.com/2841952537/cqooc_class/blob/9b8563ddf7f958d8d2214227bba0bdf1d592c5ca/%E9%87%8D%E5%BA%86%E9%AB%98%E7%AD%89%E6%95%99%E8%82%B2%E6%99%BA%E6%85%A7%E6%95%99%E8%82%B2%E5%B9%B3%E5%8F%B0V2.exe)
 
 ### 2. 运行可执行文件
 
@@ -35,4 +35,4 @@
 使用Git克隆源代码到本地：
 
 ```bash
-git clone https://github.com/yourusername/智慧教育刷课脚本.git
+git clone https://github.com/2841952537/智慧教育刷课脚本.git
