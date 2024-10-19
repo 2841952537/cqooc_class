@@ -5,7 +5,6 @@ from DrissionPage import ChromiumOptions
 from tqdm import tqdm
 
 
-
 def run_word():
     # 阅读文档 - 60秒
     for i in tqdm(range(60), mininterval=0.5):
@@ -89,34 +88,11 @@ def get_x_chapter(chapters):
 
 
 # 获取大章节信息
-def get_chapter2():
-    # chapters = page.eles('x:.//div[@class="left-box"]/div[@class="menu-box"]/div')[1:-1]
+def get_chapter():
     chapters = page.eles('x:.//div[@class="left-box"]/div[@class="menu-box"]/div')[1:-1]
     for chapter in chapters:
-        chapter = chapter.ele('x:.//p[@class="title-big"]')
-        if not chapter:
-            continue
-
-        print('\n====================', chapter.text, '====================')
-
-        # 判断是否展开详情
-        is_open = chapter.ele('x:.//div[@class="first-level-inner-box"]/@style', timeout=0.2)
-        if not is_open or is_open == 'height: 0px;':
-            # 展开详情
-            chapter.ele('x:.//p[@class="title-big"]').click()
-            time.sleep(0.2)
-
-        get_x_chapter(chapter)
-
-# 获取大章节信息
-def get_chapter():
-    chapters = page.eles('x:.//div[@class="left-box"]/div[@class="menu-box"]/div')
-    for chapter in chapters:
-        chapter_title = chapter.ele('x:.//p[@class="title-big"]')
-        if not chapter_title:
-            continue
-
-        print('\n====================', chapter_title.text, '====================')
+        chapter_title = chapter.ele('x:.//p[@class="title-big"]').text
+        print('\n====================', chapter_title, '====================')
 
         # 判断是否展开详情
         is_open = chapter.ele('x:.//div[@class="first-level-inner-box"]/@style', timeout=0.2)
@@ -128,10 +104,9 @@ def get_chapter():
         get_x_chapter(chapter)
 
 
-# 检查登录
 def is_logn():
     page.get('https://www.cqooc.com/index/home')
-    page.wait.load_start(timeout=10)
+    page.wait.load_start(timeout=30)
 
     while True:
         page.get('https://www.cqooc.com/index/home')
@@ -155,73 +130,13 @@ def is_logn():
             time.sleep(1)
 
         else:
-            print('账号已登录--->开始运行\n')
+            print('账号已登录--->开始运行')
             break
-
-
-# 查找课程
-def find_class():
-    # 启用监听
-    page.listen.start('https://www.cqooc.com/api/student/my/course/list')
-
-    # 访问页面 -> 课程主页
-    page.get('https://www.cqooc.com/account/course')
-    page.wait.load_start(timeout=3)
-
-    # 处理监听数据包
-
-    for i in page.listen.steps():
-        for ID, j in enumerate(i.response.body['result']):
-            print('编号：',ID,'课程', j['MC'])
-
-
-        print('\n###\n输入66查询下一页\n输入99查询上一页\n输入编号选择课程')
-        class_num = int(input('请输入：'))
-
-        if class_num == 66:
-            try:
-                page.ele('xpath=//li[@class=" ant-pagination-next"]').click()
-            except:
-                print('已经到底了')
-                page.get('https://www.cqooc.com/account/course')
-        elif class_num == 99:
-            try:
-                page.ele('xpath=//li[@class=" ant-pagination-prev"]').click()
-            except:
-                print('已经到顶了')
-                page.get('https://www.cqooc.com/account/course')
-
-        else:
-            try:
-                if class_num <= len(i.response.body['result']) - 1:
-                    class_info = i.response.body['result'][class_num]
-
-                    print('###选择成功')
-                    print('课程名称：', class_info['MC'])
-                    print('课程ID：', class_info['ID'])
-                    print('课程教师：', class_info['ZJJS'], '\n')
-                    page.listen.stop()
-
-                    # 访问课程页面
-                    ID = class_info['ID']
-                    page.get(f'https://www.cqooc.com/course/detail/courseStudy?id={ID}&kkzt=true')
-                    page.wait.load_start(timeout=1)
-
-
-
-
-                    break
-                else:
-                    print('======>输入错误：请重新输入')
-                    page.get('https://www.cqooc.com/account/course')
-            except:
-                print('======>输入错误：请重新输入')
-                page.get('https://www.cqooc.com/account/course')
 
 
 def run_set():
     print(
-        '使用方法：\n\n1.下载Chrome浏览器(如果有就不需要再下载了)\n\n>下载地址：https://www.google.cn/intl/zh-CN/chrome/\n\n2.在Chrome浏览器上登录智慧教育(刷课平台)\n\n>智慧教育：https://www.cqooc.com/index/home\n\n3.完成了以上操作后按回车键(Enter)运行')
+        '项目说明：本软件只适用于智慧教育平台中《纪录片创作》课程\n\n使用方法：\n\n1.下载Chrome浏览器(如果有就不需要再下载了)\n\n>下载地址：https://www.google.cn/intl/zh-CN/chrome/\n\n2.在Chrome浏览器上登录智慧教育(刷课平台)\n\n>智慧教育：https://www.cqooc.com/index/home\n\n3.完成了以上操作后按任意键运行')
     chrom_path = input()
 
 
@@ -253,26 +168,15 @@ if __name__ == '__main__':
     ## 开源地址：https://github.com/2841952537/cqooc_class
 
     ''')
-    print('等待页面加载中...预计30秒...请不要对浏览器进行任何操作...')
+    print('等待页面加载中...预计30秒...')
 
     # 登录判断
     is_logn()
 
-    # 查找课程 -> 进入课程页面
-    find_class()
+    # 访问页面
+    page.get('https://www.cqooc.com/course/detail/courseStudy?id=dc58e3be5d477b79&kkzt=true')
+    # page.get('https://www.cqooc.com/course/detail/courseStudy?id=334572312')
+    page.wait.load_start(timeout=3)
 
     # 获取大章节信息
     get_chapter()
-
-    # 结束语
-    print('''
-    ++课程已全部完成
-    ++如有漏刷请重新运行程序
-
-    ## 有任何问题联系：2841952537
-    ## 开源地址：https://github.com/2841952537/cqooc_class
-
-    按回车键结束程序
-
-    ''')
-    input()
