@@ -57,4 +57,4 @@
 使用Git克隆源代码到本地：
 
 ```bash
-git clone https://github.com/2841952537/智慧教育刷课脚本.git
+git clone https://github.com/2841952537/cqooc_class.git
