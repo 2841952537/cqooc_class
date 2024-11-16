@@ -19,6 +19,8 @@
 
 ## 使用方法
 
+--> [视频教程](https://www.bilibili.com/video/BV17By8YvEBU/)
+
 - ### Chrome版本
 
 ##### 	1. 下载Chrome
