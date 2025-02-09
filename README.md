@@ -2,7 +2,7 @@
 
 
 ## 💯💯💯最新版本V2.0已更新
-下载`CQOOC重庆高校在线V2.0.exe`双击运行即可   
+下载`CQOOC重庆高校在线V3.0.0.exe`双击运行即可   
 最新教学视频: [哔哩哔哩](https://www.bilibili.com/video/BV1e2NUeeE5F/?share_source=copy_web&vd_source=c22c1190086150b28a7ae891c20bb5b0)
 
 
